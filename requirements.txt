@@ -1,2 +1,4 @@
 Django==2.0.6
+gunicorn
+psycopg2
 pytz==2018.4

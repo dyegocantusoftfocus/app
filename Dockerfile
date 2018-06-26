@@ -1,8 +1,10 @@
 FROM python
 COPY . /opt/app
 WORKDIR /opt/app
-RUN pip install -r requirements.txt
+RUN apt-get update
+RUN apt-get install -y gcc python3-dev libpq-dev
+RUN python -m pip install --no-cache-dir --upgrade pip
+RUN python -m pip install --no-cache-dir -r requirements.txt
 RUN python manage.py migrate
-ENV PORT=8000
-ENTRYPOINT python manage.py runserver 0.0.0.0:$PORT
-EXPOSE $PORT
+RUN python manage.py collectstatic --no-input
+CMD ["gunicorn", "app.wsgi:application", "--reload", "--bind", "0.0.0.0:8000", "--workers", "2"]
