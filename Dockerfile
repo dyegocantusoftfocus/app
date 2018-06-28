@@ -7,4 +7,5 @@ RUN python -m pip install --no-cache-dir --upgrade pip
 RUN python -m pip install --no-cache-dir -r requirements.txt
 RUN python manage.py migrate
 RUN python manage.py collectstatic --no-input
-CMD ["gunicorn", "app.wsgi:application", "--reload", "--bind", "0.0.0.0:8000", "--workers", "2"]
+#CMD ["gunicorn", "app.wsgi:application", "--reload", "--bind", "0.0.0.0:8000", "--workers", "2"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -80,12 +80,20 @@ WSGI_APPLICATION = 'app.wsgi.application'
 #    }
 #}
 
+#DATABASES = {
+#    'default': 'postgres://app:app@db/app',
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'app',
+            'USER': 'app',
+            'PASSWORD': 'app',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
     }
-}
 
 
 # Password validation
