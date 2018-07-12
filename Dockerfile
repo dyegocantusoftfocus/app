@@ -1,7 +1,8 @@
 FROM python:3.7.0-alpine3.7
 #ENV PYTHONUNBUFFERED 1
 RUN set -ex && \
-  apk update && add --no-cache --virtual=.build-dependencies \
+  apk update && apk add --no-cache \
+  #apk update && apk add --no-cache --virtual=.build-dependencies \
   gcc \
   musl-dev \
   postgresql-dev \
