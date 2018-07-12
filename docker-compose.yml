@@ -2,12 +2,19 @@ version: '3'
 services:
   db:
     image: postgres
-    environment:
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/postgresql
   app:
     build: .
-    #image: dyegocantusoftfocus/app
+    image: dyegocantusoftfocus/app
+    env_file:
+      - .env
     depends_on:
       - db
     ports:
       - "8000:8000"
+    volumes:
+      - .:/opt/app
+
