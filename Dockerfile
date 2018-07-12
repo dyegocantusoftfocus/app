@@ -1,12 +1,17 @@
-FROM python
-ENV PYTHONUNBUFFERED 1
-RUN apt-get update
-RUN apt-get install -y gcc python3-dev libpq-dev
-RUN mkdir /opt/app
+FROM python:3.7.0-alpine3.7
+#ENV PYTHONUNBUFFERED 1
+RUN set -ex && \
+  apk update && add --no-cache --virtual=.build-dependencies \
+  gcc \
+  musl-dev \
+  postgresql-dev \
+  python3-dev
+  #python3-dev && \
+  #apk del --purge .build-dependencies
 WORKDIR /opt/app
 COPY . /opt/app
-RUN python -m pip install --no-cache-dir --upgrade pip
-RUN python -m pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache --upgrade pip
+RUN python -m pip install --no-cache -r requirements.txt
 RUN python manage.py collectstatic --no-input
 EXPOSE 8000
 #CMD ["gunicorn", "app.wsgi:application", "--reload", "--bind", "0.0.0.0:8000", "--workers", "2"]
