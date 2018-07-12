@@ -8,13 +8,11 @@ services:
       - ./db:/var/lib/postgresql
   app:
     build: .
-    image: dyegocantusoftfocus/app
     env_file:
       - .env
-    depends_on:
-      - db
     ports:
       - "8000:8000"
     volumes:
       - .:/opt/app
-
+    depends_on:
+      - db
