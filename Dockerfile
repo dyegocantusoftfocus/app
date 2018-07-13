@@ -5,6 +5,7 @@ RUN set -ex && \
   #apk update && apk add --no-cache --virtual=.build-dependencies \
   gcc \
   musl-dev \
+  bash \
   postgresql-dev \
   python3-dev
   #python3-dev && \
